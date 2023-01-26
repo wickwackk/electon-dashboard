@@ -4,7 +4,7 @@ import "../styles/header.css";
 export default function Header() {
   return (
     <div className="header">
-      <div className="container">
+      <div className="container1">
         <Electon color={"#003585"} />
         <form action="">
           <input type="search" placeholder="Search anything" />

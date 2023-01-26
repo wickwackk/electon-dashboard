@@ -8,12 +8,13 @@ import Orders from "./pages/Orders";
 import Products from "./pages/Products";
 import Settings from "./pages/Settings";
 import Users from "./pages/Users";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <div className="mainBody container">
+      <div className="mainBody container1">
         <Side />
         <div className="routes">
           <Routes>

@@ -1,5 +1,5 @@
 .side {
-  width: 30%;
+  width: 20%;
   background-color: white;
   color: #838383;
   min-height: 100vh;
@@ -12,9 +12,19 @@
 .side a {
   text-decoration: none;
   color: #838383;
-  background-color: #f3f1f1;
+  background-color: #e0e0e0;
   width: 60%;
   border-radius: 20px;
   margin-left: 40px;
   padding: 13px 30px;
+}
+
+.active {
+  background-color: #003585 !important;
+  color: white !important;
+}
+
+.white {
+  background-color: white;
+  color: black;
 }
