@@ -1,18 +1,41 @@
 import "../styles/products.css";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Product from "../components/subComp/Product";
+import { CreateProduct } from "../components/subComp/CreateProduct";
+import { DynamicModal } from "../components/subComp/DynamicModal";
 
 export default function Products() {
-  const [datas, setData] = useState();
+  const [products, setProducts] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const modalClose = () => {
+    setModalShow(false);
+  };
   useEffect(() => {
-    axios.get("http://localhost:2020/datas").then((res) => setData(res.data));
+    axios
+      .get("http://localhost:2020/products")
+      .then((res) => setProducts(res.data));
   }, []);
+
+  const showAddModal = () => {
+    setModalTitle(`Create Article`);
+    setModalContent(<CreateProduct submitProduct={submitProduct} />);
+    setModalShow(true);
+  };
+  function submitProduct(product) {
+    setProducts([...products, product]);
+    modalClose();
+  }
 
   return (
     <div>
       <div>products</div>
+      <Button onClick={showAddModal} variant="primary" className="btn">
+        New product
+      </Button>
       <div className="table">
         <Table>
           <thead className="thead align-middle">
@@ -23,17 +46,19 @@ export default function Products() {
               <th>Үлдэгдэл</th>
               <th>Хямдрал %</th>
               <th>Категори</th>
-              <th>
-                <button>...</button>
-              </th>
             </tr>
           </thead>
-          {datas &&
-            datas.map((data, index) => {
-              return <Product key={index} data={data} index={index} />;
-            })}
+          {products.map((product, index) => {
+            return <Product key={index} product={product} index={index} />;
+          })}
         </Table>
       </div>
+      <DynamicModal
+        title={modalTitle}
+        content={modalContent}
+        handleClose={modalClose}
+        show={modalShow}
+      />
     </div>
   );
 }
