@@ -1,7 +1,16 @@
+@import url("https://css.gg/more-vertical-alt.css");
+
 td img {
   height: 60px;
 }
 
 .tbody {
   height: 70px;
+}
+
+.dropdown-toggle {
+  height: 50px;
+}
+.dropdown-toggle::after {
+  display: none !important;
 }

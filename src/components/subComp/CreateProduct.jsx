@@ -4,14 +4,14 @@ import { Form, Button } from "react-bootstrap";
 
 export const CreateProduct = ({ submitProduct }) => {
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState("");
   const [spec, setSpec] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
   const [name, setName] = useState("");
   const [stock, setStock] = useState("");
-  const [id, setId] = useState("");
+  // const [id, setId] = useState("");
   const [sale, setSale] = useState("");
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const CreateProduct = ({ submitProduct }) => {
       description,
       spec,
       name,
-      id,
+      // id,
       image,
       price,
       stock,
@@ -42,7 +42,9 @@ export const CreateProduct = ({ submitProduct }) => {
 
     axios
       .post(`http://localhost:2020/products`, newProduct)
-      .then((res) => submitProduct(res.data))
+      .then((res) => {
+        submitProduct(res.data);
+      })
       .catch((err) => console.log(err));
   }
 

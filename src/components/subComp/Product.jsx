@@ -1,7 +1,19 @@
+// import { useState } from "react";
+// import { Button } from "react-bootstrap";
 import "../../styles/product.css";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 export default function Product(props) {
-  const { product, index } = props;
+  const { product } = props;
+  // const [modalShow, setModalShow] = useState(false);
+  // const [modalContent, setModalContent] = useState("");
+  // const [modalTitle, setModalTitle] = useState("");
+
+  // const modalClose = () => {
+  //   setModalShow(false);
+  // };
+  const direction = "end";
   return (
     <>
       <tbody className="tbody align-middle ">
@@ -15,9 +27,17 @@ export default function Product(props) {
           <td>{product.sale}%</td>
           <td>{product.category}</td>
           <td>
-            <button>
-              <span>...</span>
-            </button>
+            <DropdownButton
+              cssClass="e-caret-hide"
+              id="dropdown-basic-button"
+              title={<i class="gg-more-vertical-alt"></i>}
+              key="end"
+              drop="end"
+              variant="secondary"
+            >
+              <Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
+            </DropdownButton>
           </td>
         </tr>
       </tbody>

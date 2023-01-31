@@ -30,6 +30,36 @@ export default function Products() {
     modalClose();
   }
 
+  // function removeArticle(id) {
+  //   const newArticles = articles.filter((article) => {
+  //     if (article.id !== id) return article;
+  //   });
+  //   setArticles(newArticles);
+  // }
+
+  // function submitArticle(article) {
+  //   setArticles([...articles, article]);
+  //   modalClose();
+  // }
+
+  // function updateArticle(article) {
+  //   const newArticles = articles.map((curArticle) => {
+  //     if (article.id !== curArticle.id) return curArticle;
+  //     return article;
+  //   });
+  //   console.log(newArticles);
+  //   setArticles(newArticles);
+  //   modalClose();
+  // }
+
+  // function showEditModal(article) {
+  //   setModalTitle(`Edit Article`);
+  //   setModalContent(
+  //     <EditArticle article={article} updateArticle={updateArticle} />
+  //   );
+  //   setModalShow(true);
+  // }
+
   return (
     <div>
       <div>products</div>
