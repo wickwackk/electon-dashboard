@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { nanoid } from "nanoid";
 
-export const CreateProduct = ({ submitProduct }) => {
+export default function EditProduct({ submitProduct }) {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [spec, setSpec] = useState("");
@@ -148,4 +148,4 @@ export const CreateProduct = ({ submitProduct }) => {
       </Button>
     </Form>
   );
-};
+}

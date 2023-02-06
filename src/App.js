@@ -18,7 +18,7 @@ function App() {
         <Side />
         <div className="routes">
           <Routes>
-            <Route path="/controlpanel" element={<ControlPanel />} />
+            <Route path="/" element={<ControlPanel />} />
             <Route path="/products" element={<Products />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/users" element={<Users />} />

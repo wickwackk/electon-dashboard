@@ -9,7 +9,7 @@ export default function Side() {
       <Link
         onClick={() => setSelected("controlpanel")}
         className={selected === "controlpanel" ? "active" : undefined}
-        to="/controlpanel"
+        to="/"
       >
         Хянах самбар
       </Link>

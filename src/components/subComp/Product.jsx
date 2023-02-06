@@ -3,9 +3,12 @@
 import "../../styles/product.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import axios from "axios";
 
 export default function Product(props) {
   const { product } = props;
+  const { removeProduct } = props;
+
   // const [modalShow, setModalShow] = useState(false);
   // const [modalContent, setModalContent] = useState("");
   // const [modalTitle, setModalTitle] = useState("");
@@ -13,6 +16,15 @@ export default function Product(props) {
   // const modalClose = () => {
   //   setModalShow(false);
   // };
+
+  function deleteProduct() {
+    axios
+      .delete(`http://localhost:2020/products/${product.id}`)
+      .then((res) => removeProduct(res.data))
+      .catch((err) => console.log(err));
+    console.log(" delete button working");
+  }
+
   const direction = "end";
   return (
     <>
@@ -28,15 +40,14 @@ export default function Product(props) {
           <td>{product.category}</td>
           <td>
             <DropdownButton
-              cssClass="e-caret-hide"
               id="dropdown-basic-button"
-              title={<i class="gg-more-vertical-alt"></i>}
+              title={<i className="gg-more-vertical-alt"></i>}
               key="end"
               drop="end"
               variant="secondary"
             >
-              <Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
+              <Dropdown.Item>Edit</Dropdown.Item>
+              <Dropdown.Item onClick={deleteProduct}>Delete</Dropdown.Item>
             </DropdownButton>
           </td>
         </tr>

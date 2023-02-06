@@ -8,6 +8,7 @@ import { DynamicModal } from "../components/subComp/DynamicModal";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [isDelete, setIsDelete] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -18,7 +19,7 @@ export default function Products() {
     axios
       .get("http://localhost:2020/products")
       .then((res) => setProducts(res.data));
-  }, []);
+  }, [isDelete]);
 
   const showAddModal = () => {
     setModalTitle(`Create Article`);
@@ -28,6 +29,14 @@ export default function Products() {
   function submitProduct(product) {
     setProducts([...products, product]);
     modalClose();
+  }
+
+  function removeProduct(id) {
+    const newProducts = products.filter((product) => {
+      if (product.id !== id) return product;
+    });
+    setProducts(newProducts);
+    setIsDelete(!isDelete);
   }
 
   // function removeArticle(id) {
@@ -79,7 +88,16 @@ export default function Products() {
             </tr>
           </thead>
           {products.map((product, index) => {
-            return <Product key={index} product={product} index={index} />;
+            return (
+              <Product
+                key={index}
+                product={product}
+                removeProduct={removeProduct}
+                index={index}
+                isDelete={isDelete}
+                setIsDelete={setIsDelete}
+              />
+            );
           })}
         </Table>
       </div>
