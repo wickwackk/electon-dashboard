@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { nanoid } from "nanoid";
 
-export default function EditProduct({ submitProduct }) {
+export default function EditProduct({ product, updateProduct }) {
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("");
-  const [spec, setSpec] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [price, setPrice] = useState("");
-  const [name, setName] = useState("");
-  const [stock, setStock] = useState("");
-  // const [id, setId] = useState("");
-  const [sale, setSale] = useState("");
+  const [category, setCategory] = useState(product.category);
+  const [spec, setSpec] = useState(product.spec);
+  const [description, setDescription] = useState(product.description);
+  const [image, setImage] = useState(product.image);
+  const [price, setPrice] = useState(product.price);
+  const [name, setName] = useState(product.name);
+  const [stock, setStock] = useState(product.stock);
+  const [id, setId] = useState(product.id);
+  const [sale, setSale] = useState(product.sale);
 
   useEffect(() => {
     axios.get(`http://localhost:2020/products`).then((res) => {
@@ -29,22 +29,22 @@ export default function EditProduct({ submitProduct }) {
   }, []);
 
   function submitHandler() {
-    const newProduct = {
+    const editedProduct = {
       description,
       spec,
       name,
-      id: nanoid(),
+      id,
       image,
       price,
       stock,
       sale,
       category,
     };
-    console.log(newProduct);
+    console.log(editedProduct);
     axios
-      .post(`http://localhost:2020/products`, newProduct)
+      .patch(`http://localhost:2020/products/${product.id}`, editedProduct)
       .then((res) => {
-        submitProduct(res.data);
+        updateProduct(res.data);
       })
       .catch((err) => console.log(err));
   }

@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import Product from "../components/subComp/Product";
 import { CreateProduct } from "../components/subComp/CreateProduct";
 import { DynamicModal } from "../components/subComp/DynamicModal";
+import EditProduct from "../components/subComp/EditProduct";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-  const [isDelete, setIsDelete] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -19,13 +20,37 @@ export default function Products() {
     axios
       .get("http://localhost:2020/products")
       .then((res) => setProducts(res.data));
-  }, [isDelete]);
+  }, [isChanged]);
 
   const showAddModal = () => {
     setModalTitle(`Create Article`);
     setModalContent(<CreateProduct submitProduct={submitProduct} />);
     setModalShow(true);
   };
+
+  function showEditModal(product) {
+    setModalTitle(`Edit Product`);
+    setModalContent(
+      <EditProduct
+        product={product}
+        updateProduct={updateProduct}
+        isChanged={isChanged}
+      />
+    );
+    setModalShow(true);
+  }
+
+  function updateProduct(product) {
+    const newProducts = products.map((curProduct) => {
+      if (product.id !== curProduct.id) return curProduct;
+      return product;
+    });
+    console.log(newProducts);
+    setProducts(newProducts);
+    setIsChanged(!isChanged);
+    modalClose();
+  }
+
   function submitProduct(product) {
     setProducts([...products, product]);
     modalClose();
@@ -36,7 +61,7 @@ export default function Products() {
       if (product.id !== id) return product;
     });
     setProducts(newProducts);
-    setIsDelete(!isDelete);
+    setIsChanged(!isChanged);
   }
 
   // function removeArticle(id) {
@@ -94,8 +119,7 @@ export default function Products() {
                 product={product}
                 removeProduct={removeProduct}
                 index={index}
-                isDelete={isDelete}
-                setIsDelete={setIsDelete}
+                showEditModal={showEditModal}
               />
             );
           })}

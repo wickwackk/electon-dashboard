@@ -8,6 +8,7 @@ import axios from "axios";
 export default function Product(props) {
   const { product } = props;
   const { removeProduct } = props;
+  const { showEditModal } = props;
 
   // const [modalShow, setModalShow] = useState(false);
   // const [modalContent, setModalContent] = useState("");
@@ -46,7 +47,9 @@ export default function Product(props) {
               drop="end"
               variant="secondary"
             >
-              <Dropdown.Item>Edit</Dropdown.Item>
+              <Dropdown.Item onClick={() => showEditModal(product)}>
+                Edit
+              </Dropdown.Item>
               <Dropdown.Item onClick={deleteProduct}>Delete</Dropdown.Item>
             </DropdownButton>
           </td>
