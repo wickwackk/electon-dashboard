@@ -9,25 +9,38 @@ import Products from "./pages/Products";
 import Settings from "./pages/Settings";
 import Users from "./pages/Users";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import LayoutComp from "./components/LayoutComp";
+import axios from "axios";
 
 export const ProductContext = createContext();
 
 function App() {
-  const [products, setProducts] = useState(["a", "b"]);
+  const [products, setProducts] = useState([]);
+  const [isChanged, setIsChanged] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2020/products")
+      .then((res) => setProducts(res.data));
+  }, [isChanged]);
 
   return (
     <div className="App">
       <ProductContext.Provider
-        value={{ products: products, setProducts: setProducts }}
+        value={{
+          products: products,
+          setProducts: setProducts,
+          isChanged: isChanged,
+          setIsChanged: setIsChanged,
+        }}
       >
         <LayoutComp>
           <div className="mainBody container1">
             <Side />
             <div className="routes">
               <Routes>
-                <Route path="/" element={<ControlPanel />} />
+                <Route index path="/" element={<ControlPanel />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/users" element={<Users />} />

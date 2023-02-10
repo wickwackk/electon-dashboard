@@ -1,26 +1,23 @@
 import "../styles/products.css";
 import { Button, Table } from "react-bootstrap";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Product from "../components/subComp/Product";
 import { CreateProduct } from "../components/subComp/CreateProduct";
 import { DynamicModal } from "../components/subComp/DynamicModal";
 import EditProduct from "../components/subComp/EditProduct";
+import { ProductContext } from "../App";
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
-  const [isChanged, setIsChanged] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const { products, setProducts, isChanged, setIsChanged } =
+    useContext(ProductContext);
+
   const modalClose = () => {
     setModalShow(false);
   };
-  useEffect(() => {
-    axios
-      .get("http://localhost:2020/products")
-      .then((res) => setProducts(res.data));
-  }, [isChanged]);
 
   const showAddModal = () => {
     setModalTitle(`Create Article`);
@@ -31,11 +28,7 @@ export default function Products() {
   function showEditModal(product) {
     setModalTitle(`Edit Product`);
     setModalContent(
-      <EditProduct
-        product={product}
-        updateProduct={updateProduct}
-        isChanged={isChanged}
-      />
+      <EditProduct product={product} updateProduct={updateProduct} />
     );
     setModalShow(true);
   }

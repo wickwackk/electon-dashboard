@@ -1,9 +1,21 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "../styles/side.css";
 
 export default function Side() {
-  const [selected, setSelected] = useState("controlpanel");
+  // let pageName = localStorage.getItem("sideNames");
+  const { pathname } = useLocation();
+  console.log("original pathname: ", pathname);
+  console.log("pathname: ", pathname.slice(1, pathname.length));
+  const [selected, setSelected] = useState(
+    pathname !== "/" ? pathname.slice(1, pathname.length) : "controlpanel"
+  );
+  // localStorage.setItem("sideNames", selected);
+
+  // useEffect(()=>{
+  //   setSelected("controlpanel")
+  // },[])
+
   return (
     <div className="side">
       <Link

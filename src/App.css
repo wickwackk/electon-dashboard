@@ -21,3 +21,8 @@ body {
   padding: 40px;
   background-color: white;
 }
+
+.options-name {
+  border-bottom: grey 1px solid;
+  padding-bottom: 20px;
+}
