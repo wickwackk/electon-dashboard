@@ -11,7 +11,6 @@ export default function Users() {
   useEffect(() => {
     axios.get("http://localhost:2020/users").then((res) => setUsers(res.data));
   }, []);
-  console.log(users);
 
   return (
     <div>
