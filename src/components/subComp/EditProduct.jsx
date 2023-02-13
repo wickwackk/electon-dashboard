@@ -6,14 +6,14 @@ import { nanoid } from "nanoid";
 export default function EditProduct({ product, updateProduct }) {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(product.category);
-  const [spec, setSpec] = useState(product.spec);
-  const [description, setDescription] = useState(product.description);
-  const [image, setImage] = useState(product.image);
-  const [price, setPrice] = useState(product.price);
-  const [name, setName] = useState(product.name);
-  const [stock, setStock] = useState(product.stock);
+  // const [spec, setSpec] = useState(product.spec);
+  // const [description, setDescription] = useState(product.description);
+  // const [image, setImage] = useState(product.image);
+  // const [price, setPrice] = useState(product.price);
+  // const [name, setName] = useState(product.name);
+  // const [stock, setStock] = useState(product.stock);
   const [id, setId] = useState(product.id);
-  const [sale, setSale] = useState(product.sale);
+  // const [sale, setSale] = useState(product.sale);
 
   useEffect(() => {
     axios.get(`http://localhost:2020/products`).then((res) => {
@@ -28,19 +28,20 @@ export default function EditProduct({ product, updateProduct }) {
     });
   }, []);
 
-  function submitHandler() {
+  function submitHandler(e) {
+    // console.log(e.target.sale.value);
     const editedProduct = {
-      description,
-      spec,
-      name,
+      description: e.target.description.value,
+      spec: e.target.spec.value,
+      name: e.target.name.value,
       id,
-      image,
-      price,
-      stock,
-      sale,
+      image: e.target.image.value,
+      price: e.target.price.value,
+      stock: e.target.stock.value,
+      sale: e.target.sale.value,
       category,
     };
-    console.log(editedProduct);
+
     axios
       .patch(`http://localhost:2020/products/${product.id}`, editedProduct)
       .then((res) => {
@@ -53,14 +54,15 @@ export default function EditProduct({ product, updateProduct }) {
     <Form
       onSubmit={(e) => {
         e.preventDefault();
-        submitHandler();
+        submitHandler(e);
       }}
     >
       <Form.Group className="mb-3">
         <Form.Label>Image URL</Form.Label>
         <Form.Control
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
+          name="image"
+          defaultValue={product.image}
+          // onChange={(e) => setImage(e.target.value)}
           type="text"
           placeholder="Image URL"
         />
@@ -69,8 +71,9 @@ export default function EditProduct({ product, updateProduct }) {
         <div className="w-50">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            defaultValue={product.name}
+            // onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="Product name"
           />
@@ -78,8 +81,9 @@ export default function EditProduct({ product, updateProduct }) {
         <div className="w-50">
           <Form.Label>Price</Form.Label>
           <Form.Control
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            name="price"
+            defaultValue={product.price}
+            // onChange={(e) => setPrice(e.target.value)}
             type="text"
             placeholder="Product price"
           />
@@ -90,8 +94,9 @@ export default function EditProduct({ product, updateProduct }) {
         <div className="w-50">
           <Form.Label>Stock</Form.Label>
           <Form.Control
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
+            name="stock"
+            defaultValue={product.stock}
+            // onChange={(e) => setStock(e.target.value)}
             type="text"
             placeholder="Product stock"
           />
@@ -99,8 +104,9 @@ export default function EditProduct({ product, updateProduct }) {
         <div className="w-50">
           <Form.Label>Sale</Form.Label>
           <Form.Control
-            value={sale}
-            onChange={(e) => setSale(e.target.value)}
+            name="sale"
+            defaultValue={product.sale}
+            // onChange={(e) => setSale(e.target.value)}
             type="text"
             placeholder="Product sale"
           />
@@ -109,15 +115,17 @@ export default function EditProduct({ product, updateProduct }) {
       <Form.Group className="mb-3">
         <Form.Label>Spec</Form.Label>
         <Form.Control
-          value={spec}
-          onChange={(e) => setSpec(e.target.value)}
+          name="spec"
+          defaultValue={product.spec}
+          // onChange={(e) => setSpec(e.target.value)}
           type="text"
           placeholder="Product spec"
         />
         <Form.Label>Description</Form.Label>
         <Form.Control
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name="description"
+          defaultValue={product.description}
+          // onChange={(e) => setDescription(e.target.value)}
           type="text"
           placeholder="Product description"
         />
@@ -126,6 +134,7 @@ export default function EditProduct({ product, updateProduct }) {
       <Form.Group className="mb-3">
         <Form.Label>Categories</Form.Label>
         <Form.Select
+          name="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           aria-label="Default select example"

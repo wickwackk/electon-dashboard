@@ -5,8 +5,8 @@ import "../styles/side.css";
 export default function Side() {
   // let pageName = localStorage.getItem("sideNames");
   const { pathname } = useLocation();
-  console.log("original pathname: ", pathname);
-  console.log("pathname: ", pathname.slice(1, pathname.length));
+  // console.log("original pathname: ", pathname);
+  // console.log("pathname: ", pathname.slice(1, pathname.length));
   const [selected, setSelected] = useState(
     pathname !== "/" ? pathname.slice(1, pathname.length) : "controlpanel"
   );

@@ -39,7 +39,6 @@ export default function Products() {
       return product;
     });
     console.log(newProducts);
-    setProducts(newProducts);
     setIsChanged(!isChanged);
     modalClose();
   }
