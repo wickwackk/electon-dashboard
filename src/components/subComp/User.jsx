@@ -31,7 +31,7 @@ export default function User(props) {
     <>
       <tbody className="tbody align-middle ">
         <tr>
-          <td>{user.id}</td>
+          <td>#{user.id}</td>
           <td>{user.name}</td>
           <td>{user.surname}</td>
           <td>{user.email}</td>

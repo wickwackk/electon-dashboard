@@ -2,28 +2,67 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { ProductContext } from "../App";
+import { DynamicModal } from "../components/subComp/DynamicModal";
+import EditOrder from "../components/subComp/EditOrder";
 import Order from "../components/subComp/Order";
 import "../styles/orders.css";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
-  const { products, setProducts, isChanged, setIsChanged } =
-    useContext(ProductContext);
+  const [modalShow, setModalShow] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [isChanged, setIsChanged] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:2020/orders").then((res) => {
       setOrders(res.data);
     });
-  }, []);
+  }, [isChanged]);
 
-  // const [itemDetail, setItemDetail] = useState([])
+  const modalClose = () => {
+    setModalShow(false);
+  };
 
-  // (ordersorders.map()
+  // const showAddModal = () => {
+  //   setModalTitle(`Create Order`);
+  //   setModalContent(<CreateProduct submitProduct={submitProduct} />);
+  //   setModalShow(true);
+  // };
+
+  // function submitProduct(product) {
+  //   setProducts([...products, product]);
+  //   modalClose();
+  // }
+
+  function removeOrder(id) {
+    const newOrder = orders.filter((order) => {
+      if (order.id !== id) return order;
+    });
+    setOrders(newOrder);
+    setIsChanged(!isChanged);
+  }
+
+  function showOrderEdit(order) {
+    setModalTitle(`Edit Order`);
+    setModalContent(<EditOrder order={order} updateOrder={updateOrder} />);
+    setModalShow(true);
+  }
+
+  function updateOrder(order) {
+    const newOrder = orders.map((curOrder) => {
+      if (order.id !== curOrder.id) return curOrder;
+      return order;
+    });
+    console.log(newOrder);
+    setIsChanged(!isChanged);
+    modalClose();
+  }
 
   return (
     <div>
       <div>orders</div>
-      <div>
+      <div className="table">
         <Table>
           <thead>
             <tr>
@@ -59,6 +98,12 @@ export default function Orders() {
             })}
         </Table>
       </div>
+      <DynamicModal
+        title={modalTitle}
+        content={modalContent}
+        handleClose={modalClose}
+        show={modalShow}
+      />
     </div>
   );
 }

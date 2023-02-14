@@ -1,12 +1,17 @@
 // import "../../styles/order.css";
 
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import { DynamicModal } from "./DynamicModal";
+import EditOrder from "./EditOrder";
+
 export default function Order(props) {
   const { order, index, quantity } = props;
+
   return (
     <>
-      <tbody>
+      <tbody className="tbody align-middle ">
         <tr>
-          <td>{order.orderNum}</td>
+          <td>#{order.orderNum}</td>
           <td>{order.date}</td>
           <td>{order.phone}</td>
           <td>{order.email}</td>
@@ -20,6 +25,18 @@ export default function Order(props) {
               : order.status
               ? `hurgegdsen`
               : `processing`}
+          </td>
+          <td>
+            <DropdownButton
+              id="dropdown-basic-button"
+              title={<i className="gg-more-vertical-alt"></i>}
+              key="end"
+              drop="end"
+              variant="secondary"
+            >
+              <Dropdown.Item>Edit</Dropdown.Item>
+              <Dropdown.Item>Delete</Dropdown.Item>
+            </DropdownButton>
           </td>
         </tr>
       </tbody>

@@ -6,14 +6,7 @@ import { nanoid } from "nanoid";
 export default function EditProduct({ product, updateProduct }) {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(product.category);
-  // const [spec, setSpec] = useState(product.spec);
-  // const [description, setDescription] = useState(product.description);
-  // const [image, setImage] = useState(product.image);
-  // const [price, setPrice] = useState(product.price);
-  // const [name, setName] = useState(product.name);
-  // const [stock, setStock] = useState(product.stock);
   const [id, setId] = useState(product.id);
-  // const [sale, setSale] = useState(product.sale);
 
   useEffect(() => {
     axios.get(`http://localhost:2020/products`).then((res) => {

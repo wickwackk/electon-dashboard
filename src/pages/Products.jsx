@@ -7,89 +7,58 @@ import { CreateProduct } from "../components/subComp/CreateProduct";
 import { DynamicModal } from "../components/subComp/DynamicModal";
 import EditProduct from "../components/subComp/EditProduct";
 import { ProductContext } from "../App";
+import { useProducts } from "../context/ProductContext";
 
 export default function Products() {
-  const [modalShow, setModalShow] = useState(false);
-  const [modalContent, setModalContent] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
-  const { products, setProducts, isChanged, setIsChanged } =
-    useContext(ProductContext);
+  const { products, setProducts, isChanged, setIsChanged } = useProducts();
 
-  const modalClose = () => {
-    setModalShow(false);
-  };
+  // const modalClose = () => {
+  //   setModalShow(false);
+  // };
 
-  const showAddModal = () => {
-    setModalTitle(`Create Article`);
-    setModalContent(<CreateProduct submitProduct={submitProduct} />);
-    setModalShow(true);
-  };
+  // const showAddModal = () => {
+  //   setModalTitle(`Create Article`);
+  //   setModalContent(<CreateProduct submitProduct={submitProduct} />);
+  //   setModalShow(true);
+  // };
 
-  function showEditModal(product) {
-    setModalTitle(`Edit Product`);
-    setModalContent(
-      <EditProduct product={product} updateProduct={updateProduct} />
-    );
-    setModalShow(true);
-  }
-
-  function updateProduct(product) {
-    const newProducts = products.map((curProduct) => {
-      if (product.id !== curProduct.id) return curProduct;
-      return product;
-    });
-    console.log(newProducts);
-    setIsChanged(!isChanged);
-    modalClose();
-  }
-
-  function submitProduct(product) {
-    setProducts([...products, product]);
-    modalClose();
-  }
-
-  function removeProduct(id) {
-    const newProducts = products.filter((product) => {
-      if (product.id !== id) return product;
-    });
-    setProducts(newProducts);
-    setIsChanged(!isChanged);
-  }
-
-  // function removeArticle(id) {
-  //   const newArticles = articles.filter((article) => {
-  //     if (article.id !== id) return article;
-  //   });
-  //   setArticles(newArticles);
-  // }
-
-  // function submitArticle(article) {
-  //   setArticles([...articles, article]);
-  //   modalClose();
-  // }
-
-  // function updateArticle(article) {
-  //   const newArticles = articles.map((curArticle) => {
-  //     if (article.id !== curArticle.id) return curArticle;
-  //     return article;
-  //   });
-  //   console.log(newArticles);
-  //   setArticles(newArticles);
-  //   modalClose();
-  // }
-
-  // function showEditModal(article) {
-  //   setModalTitle(`Edit Article`);
+  // function showEditModal(product) {
+  //   setModalTitle(`Edit Product`);
   //   setModalContent(
-  //     <EditArticle article={article} updateArticle={updateArticle} />
+  //     <EditProduct product={product} updateProduct={updateProduct} />
   //   );
   //   setModalShow(true);
   // }
 
+  // function updateProduct(product) {
+  //   const newProducts = products.map((curProduct) => {
+  //     if (product.id !== curProduct.id) return curProduct;
+  //     return product;
+  //   });
+  //   console.log(newProducts);
+  //   setIsChanged(!isChanged);
+  //   modalClose();
+  // }
+
+  // function submitProduct(product) {
+  //   setProducts([...products, product]);
+  //   modalClose();
+  // }
+
+  // function removeProduct(id) {
+  //   const newProducts = products.filter((product) => {
+  //     if (product.id !== id) return product;
+  //   });
+  //   setProducts(newProducts);
+  //   setIsChanged(!isChanged);
+  // }
+
+  // onHide={setModalShow(false)}
+
   return (
     <div>
       <div>products</div>
-      <Button onClick={showAddModal} variant="primary" className="btn">
+      <Button variant="primary" className="btn">
         New product
       </Button>
       <div className="table">
@@ -105,24 +74,10 @@ export default function Products() {
             </tr>
           </thead>
           {products.map((product, index) => {
-            return (
-              <Product
-                key={index}
-                product={product}
-                removeProduct={removeProduct}
-                index={index}
-                showEditModal={showEditModal}
-              />
-            );
+            return <Product key={index} product={product} />;
           })}
         </Table>
       </div>
-      <DynamicModal
-        title={modalTitle}
-        content={modalContent}
-        handleClose={modalClose}
-        show={modalShow}
-      />
     </div>
   );
 }

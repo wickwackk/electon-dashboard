@@ -27,30 +27,21 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider
-        value={{
-          products: products,
-          setProducts: setProducts,
-          isChanged: isChanged,
-          setIsChanged: setIsChanged,
-        }}
-      >
-        <LayoutComp>
-          <div className="mainBody container1">
-            <Side />
-            <div className="routes">
-              <Routes>
-                <Route index path="/" element={<ControlPanel />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/users" element={<Users />} />
-                <Route path="/moderator" element={<Moderator />} />
-                <Route path="/settings" element={<Settings />} />
-              </Routes>
-            </div>
+      <LayoutComp>
+        <div className="mainBody container1">
+          <Side />
+          <div className="routes">
+            <Routes>
+              <Route index path="/" element={<ControlPanel />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/moderator" element={<Moderator />} />
+              <Route path="/settings" element={<Settings />} />
+            </Routes>
           </div>
-        </LayoutComp>
-      </ProductContext.Provider>
+        </div>
+      </LayoutComp>
     </div>
   );
 }

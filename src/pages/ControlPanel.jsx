@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../App";
 import Product from "../components/subComp/Product";
+import { useProducts } from "../context/ProductContext";
 import ControlPanelSvg from "../imgComp/ControlPanelSvg";
 import "../styles/controlPanel.css";
 
 export default function ControlPanel() {
-  const { products, setProducts } = useContext(ProductContext);
+  const { products, setProducts } = useProducts();
   const [newProducts, setNewProducts] = useState(
     products && products.slice(products.length - 6, products.length)
   );
@@ -25,6 +26,8 @@ export default function ControlPanel() {
   //     </div>;
   //   }
   // }
+
+  // onHide={setModalShow(false)}
 
   return (
     <div>
