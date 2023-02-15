@@ -3,7 +3,6 @@
 // import "../../styles/user.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import axios from "axios";
 
 export default function User(props) {
   const { user } = props;
@@ -26,7 +25,6 @@ export default function User(props) {
   //   console.log(" delete button working");
   // }
 
-  const direction = "end";
   return (
     <>
       <tbody className="tbody align-middle ">

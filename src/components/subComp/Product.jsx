@@ -9,20 +9,13 @@ import { useEffect, useState } from "react";
 import { useProducts } from "../../context/ProductContext";
 
 export default function Product(props) {
-  const { products, setProducts, isChanged, setIsChanged } = useProducts();
-  const { product } = props;
+  const { isChanged, setIsChanged } = useProducts();
+  const { product, spec } = props;
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(product.category);
   const [id, setId] = useState(product.id);
   const [modalShow, setModalShow] = useState(false);
-
-  // function deleteProduct() {
-  //   axios
-  //     .delete(`http://localhost:2020/products/${product.id}`)
-  //     .then((res) => removeProduct(res.data))
-  //     .catch((err) => console.log(err));
-  //   console.log(" delete button working");
-  // }
+  const [specArr, setSpecArr] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:2020/products`).then((res) => {
@@ -32,20 +25,12 @@ export default function Product(props) {
         }
       });
       test = [...new Set(test)];
-      // console.log(test);
+
       setCategories(test);
     });
   }, []);
 
-  function updateProduct(product) {
-    // products.map((curProduct) => {
-    //   if (product.id !== curProduct.id) return curProduct;
-    //   return product;
-    // });
-  }
-
   function submitHandler(e) {
-    // console.log(e.target.sale.value);
     const editedProduct = {
       description: e.target.description.value,
       spec: e.target.spec.value,
@@ -69,11 +54,19 @@ export default function Product(props) {
     setModalShow(false);
   }
 
-  // function editProduct(product) {
-  //   setModalShow(true);
-  // }
+  function deleteProduct() {
+    axios
+      .delete(`http://localhost:2020/products/${product.id}`)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
 
-  const direction = "end";
+    setIsChanged(!isChanged);
+  }
+
+  // spec.map((singleSpec) => {
+  //   console.log(singleSpec);
+  // });
+
   return (
     <>
       <tbody className="tbody align-middle">
@@ -97,7 +90,7 @@ export default function Product(props) {
               <Dropdown.Item onClick={() => setModalShow(true)}>
                 Edit
               </Dropdown.Item>
-              <Dropdown.Item>Delete</Dropdown.Item>
+              <Dropdown.Item onClick={deleteProduct}>Delete</Dropdown.Item>
             </DropdownButton>
           </td>
           <Modal show={modalShow} onHide={() => setModalShow(false)}>
@@ -168,13 +161,18 @@ export default function Product(props) {
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Spec</Form.Label>
-                  <Form.Control
-                    name="spec"
-                    defaultValue={product.spec}
-                    // onChange={(e) => setSpec(e.target.value)}
-                    type="text"
-                    placeholder="Product spec"
-                  />
+                  {spec.map((singleSpec, index) => {
+                    // setSpecArr(...specArr, singleSpec);
+                    return (
+                      <div key={index}>
+                        <input defaultValue={Object.keys(singleSpec)} />
+                        <input
+                          type="text"
+                          defaultValue={Object.values(singleSpec)}
+                        />
+                      </div>
+                    );
+                  })}
                   <Form.Label>Description</Form.Label>
                   <Form.Control
                     name="description"

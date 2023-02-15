@@ -1,11 +1,9 @@
 // import "../../styles/order.css";
 
 import { Dropdown, DropdownButton } from "react-bootstrap";
-import { DynamicModal } from "./DynamicModal";
-import EditOrder from "./EditOrder";
 
 export default function Order(props) {
-  const { order, index, quantity } = props;
+  const { order, quantity } = props;
 
   return (
     <>
