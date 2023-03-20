@@ -132,14 +132,18 @@ export default function Products() {
             }}
           >
             <Form.Group className="mb-3">
-              <Form.Label>Image URL</Form.Label>
-              <Form.Control
+              <Form.Label className="imageLabel">Image URL</Form.Label>
+              {/* <Form.Control
                 name="image"
                 // defaultValue={product.image}
                 // onChange={(e) => setImage(e.target.value)}
                 type="text"
                 placeholder="Image URL"
-              />
+              /> */}
+              <input type="file" />
+              {/* <input type="file" />
+              <input type="file" />
+              <input type="file" /> */}
             </Form.Group>
             <Form.Group className="d-flex justify-content-between gap-4">
               <div className="w-50">

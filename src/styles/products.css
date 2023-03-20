@@ -5,3 +5,7 @@
 .thead {
   height: 70px;
 }
+
+.imageLabel {
+  display: block;
+}
