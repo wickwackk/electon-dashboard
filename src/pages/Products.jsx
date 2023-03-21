@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Product from "../components/subComp/Product";
 
 import { useProducts } from "../context/ProductContext";
-import { nanoid } from "nanoid";
 
 export default function Products() {
   const { products, isChanged, setIsChanged } = useProducts();
@@ -15,7 +14,7 @@ export default function Products() {
 
   useEffect(() => {
     axios.get(`http://localhost:2020/products`).then((res) => {
-      let test = res.data.map((product) => {
+      let test = res.data.forEach((product) => {
         if (!categories.includes(product.category)) {
           return product.category;
         }
@@ -24,7 +23,7 @@ export default function Products() {
 
       setCategories(test);
     });
-  }, []);
+  });
 
   // const modalClose = () => {
   //   setModalShow(false);
@@ -70,25 +69,28 @@ export default function Products() {
   function submitHandler(e) {
     const newProduct = {
       description: e.target.description.value,
-      spec: e.target.spec.value,
+      // spec: e.target.spec.value,
       name: e.target.name.value,
-      id: nanoid(),
-      image: e.target.image.value,
-      price: e.target.price.value,
-      stock: e.target.stock.value,
+      // image: e.target.image.value,
+      price: Number(e.target.price.value),
+      stock: Number(e.target.stock.value),
       sale: e.target.sale.value,
-      category,
+      // category,
     };
 
+    const productForm = new FormData();
+    productForm.append("file", e.target.image.files[0]);
+    productForm.append("details", JSON.stringify(newProduct));
+
     axios
-      .post(`http://localhost:2020/products`, newProduct)
+      .post(`http://localhost:2040/product`, productForm)
       .then((res) => {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
 
     setIsChanged(!isChanged);
-    setModalShow(false);
+    // setModalShow(false);
   }
 
   return (
@@ -122,7 +124,7 @@ export default function Products() {
       </div>
       <Modal show={modalShow} onHide={() => setModalShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit product</Modal.Title>
+          <Modal.Title>Add product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -140,7 +142,7 @@ export default function Products() {
                 type="text"
                 placeholder="Image URL"
               /> */}
-              <input type="file" />
+              <input type="file" name="image" />
               {/* <input type="file" />
               <input type="file" />
               <input type="file" /> */}
@@ -191,14 +193,14 @@ export default function Products() {
               </div>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Spec</Form.Label>
+              {/* <Form.Label>Spec</Form.Label>
               <Form.Control
                 name="spec"
                 // defaultValue={product.spec}
                 // onChange={(e) => setSpec(e.target.value)}
                 type="text"
                 placeholder="Product spec"
-              />
+              /> */}
               <Form.Label>Description</Form.Label>
               <Form.Control
                 name="description"
