@@ -27,7 +27,7 @@ export default function Order(props) {
           <td>
             <DropdownButton
               id="dropdown-basic-button"
-              title={<i className="gg-more-vertical-alt"></i>}
+              title={<i className="gg-more-vertical"></i>}
               key="end"
               drop="end"
               variant="secondary"

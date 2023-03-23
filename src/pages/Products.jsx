@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import Product from "../components/subComp/Product";
 
 import { useProducts } from "../context/ProductContext";
+import AddCategory from "../components/subComp/AddCategory";
 
 export default function Products() {
   const { products, isChanged, setIsChanged } = useProducts();
   const [modalShow, setModalShow] = useState(false);
+  const [cateModalShow, setCateModalShow] = useState(false);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState();
 
@@ -93,6 +95,11 @@ export default function Products() {
     // setModalShow(false);
   }
 
+  function cateModalHandler() {
+    setCateModalShow(true);
+    console.log("cate button working");
+  }
+
   return (
     <div>
       <div>products</div>
@@ -102,6 +109,15 @@ export default function Products() {
         onClick={() => setModalShow(true)}
       >
         Add product
+      </Button>
+      <Button
+        variant="primary"
+        className="btn"
+        onClick={() => {
+          cateModalHandler();
+        }}
+      >
+        Add category
       </Button>
       <div className="table">
         <Table>
@@ -122,6 +138,10 @@ export default function Products() {
           })}
         </Table>
       </div>
+      <AddCategory
+        cateModalShow={cateModalShow}
+        setCateModalShow={setCateModalShow}
+      />
       <Modal show={modalShow} onHide={() => setModalShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Add product</Modal.Title>

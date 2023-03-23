@@ -6,10 +6,10 @@ import ControlPanelSvg from "../imgComp/ControlPanelSvg";
 import "../styles/controlPanel.css";
 
 export default function ControlPanel() {
-  const { products, setProducts } = useProducts();
-  const [newProducts, setNewProducts] = useState(
-    products && products.slice(products.length - 6, products.length)
-  );
+  // const { products, setProducts } = useProducts();
+  // const [newProducts, setNewProducts] = useState(
+  //   products && products.slice(products.length - 6, products.length)
+  // );
   // useEffect(() => {
   //   setProducts(products.slice(products.length - 6, products.length));
   // }, []);
@@ -31,13 +31,14 @@ export default function ControlPanel() {
 
   return (
     <div>
-      <div className="options-name">
+      {/* <div className="options-name">
         <ControlPanelSvg />
         <span>control panel</span>
       </div>
       {newProducts.map((product, index) => {
         return <Product key={index} product={product} index={index} />;
-      })}
+      })} */}
+      control panel
     </div>
   );
 }
