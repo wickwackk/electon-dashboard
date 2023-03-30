@@ -19,11 +19,11 @@ function App() {
   const [products, setProducts] = useState([]);
   const [isChanged, setIsChanged] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:2020/products")
-      .then((res) => setProducts(res.data));
-  }, [isChanged]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:2020/products")
+  //     .then((res) => setProducts(res.data));
+  // }, [isChanged]);
 
   return (
     <div className="App">

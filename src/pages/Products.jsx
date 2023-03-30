@@ -14,18 +14,18 @@ export default function Products() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState();
 
-  useEffect(() => {
-    axios.get(`http://localhost:2020/products`).then((res) => {
-      let test = res.data.forEach((product) => {
-        if (!categories.includes(product.category)) {
-          return product.category;
-        }
-      });
-      test = [...new Set(test)];
+  // useEffect(() => {
+  //   axios.get(`http://localhost:2020/products`).then((res) => {
+  //     let test = res.data.map((product) => {
+  //       if (!categories.includes(product.category)) {
+  //         return product.category;
+  //       }
+  //     });
+  //     test = [...new Set(test)];
 
-      setCategories(test);
-    });
-  });
+  //     setCategories(test);
+  //   });
+  // }, []);
 
   // const modalClose = () => {
   //   setModalShow(false);

@@ -17,18 +17,18 @@ export default function Product(props) {
   const [modalShow, setModalShow] = useState(false);
   const [specArr, setSpecArr] = useState([]);
 
-  useEffect(() => {
-    axios.get(`http://localhost:2020/products`).then((res) => {
-      let test = res.data.map((product) => {
-        if (!categories.includes(product.category)) {
-          return product.category;
-        }
-      });
-      test = [...new Set(test)];
+  // useEffect(() => {
+  //   axios.get(`http://localhost:2020/products`).then((res) => {
+  //     let test = res.data.map((product) => {
+  //       if (!categories.includes(product.category)) {
+  //         return product.category;
+  //       }
+  //     });
+  //     test = [...new Set(test)];
 
-      setCategories(test);
-    });
-  }, []);
+  //     setCategories(test);
+  //   });
+  // }, []);
 
   function submitHandler(e) {
     const editedProduct = {
