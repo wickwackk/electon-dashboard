@@ -34,6 +34,7 @@ export default function Users() {
       .catch((err) => console.log(err));
 
     setIsChanged(!isChanged);
+    console.log("request success from front end");
   }
 
   return (
